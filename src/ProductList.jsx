@@ -252,10 +252,12 @@ function ProductList() {
         setShowCart(false);
     };
 
-    const handleAddToCart = (index) => {
-        dispatch(addItem(index))
-        const name = plantsArray[index].name
-        setAddedToCart({ name: true })
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product))
+        setAddedToCart((prevState) => ({
+            ...prevState,
+            [product.name]: true
+        }))
     }
     return (
         <div>
@@ -279,19 +281,21 @@ function ProductList() {
             </div>
             {!showCart ? (
                 <div className="product-grid">
-                    {plantsArray.map((item, index) => {
+                    {plantsArray.map((category, index) => (
                         <div key={index}>
-                            <span>{item.name}</span>
-                            <div className="img">
-                                <img src={item.img} alt={item.name} />
+                            <h1><div>{category.category}</div></h1>
+                            <div className="product-list">
+                                {category.plants.map((plant, plantIndex) => (
+                                    <div className="product-card" key={plantIndex}>
+                                        <img className="product-image" src={plant.image} alt={plant.name} />
+                                        <div className="product-title">{plant.name}</div>
+                                        {/*Similarly like the above plant.name show other details like description and cost*/}
+                                        <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                    </div>
+                                ))}
                             </div>
-                            <p>
-                                {item.description}
-                            </p>
-                            <span>{item.cost}</span>
-                            <button onClick={() => handleAddToCart(index)}>add to cart</button>
                         </div>
-                    })}
+                    ))}
 
                 </div>
             ) : (
