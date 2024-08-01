@@ -18,11 +18,8 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleContinueShopping = (e) => {
-    e.preventDefault()
     onContinueShopping()
   };
-
-
 
   const handleIncrement = (item) => {
     dispatch(increaseQuantity(item))

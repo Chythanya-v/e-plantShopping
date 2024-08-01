@@ -249,8 +249,7 @@ function ProductList() {
         setShowCart(false); // Hide the cart when navigating to About Us
     };
 
-    const handleContinueShopping = (e) => {
-        e.preventDefault();
+    const handleContinueShopping = () => {
         setShowCart(false);
     };
 
@@ -261,6 +260,11 @@ function ProductList() {
             [product.name]: true
         }))
     }
+
+    function buttonAdded(name) {
+        return Object.keys(addedToCart).includes(name) ? "added-to-cart" : ""
+    }
+
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -296,7 +300,7 @@ function ProductList() {
                                         <div className="product-title">{plant.name}</div>
                                         <div>{plant.description}</div>
                                         <div className='product-price'>{plant.cost}</div>
-                                        <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                        <button className={`product-button ${buttonAdded(plant.name)}`} onClick={() => handleAddToCart(plant)}>Add to Cart</button>
                                     </div>
                                 ))}
                             </div>
